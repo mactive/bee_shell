@@ -46,12 +46,17 @@ class PopupContainer extends React.Component {
     this.setState({
       visible: false,
     })
+    // 模拟触发 onAnimationEnd
+    setTimeout(()=>{
+      this.props.onAnimationEnd();
+    },1000)
   }
 
   onMaskClose = () => {
     const onMaskClose = this.props.onMaskClose;
     if(onMaskClose) {
       const res = onMaskClose('from popupContainer');
+      // 如果有返回值必须是promise
       if(res && res.then) {
         res.then(() => {
           this.hide();

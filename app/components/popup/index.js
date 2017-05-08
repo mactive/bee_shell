@@ -14,6 +14,7 @@ export default {
       <PopupContainer
         ref={i => popupInstance = i}
         onMaskClose={options.onMaskClose}
+        onAnimationEnd={visible => { if (!visible) { TopView.remove(); } }}
         visible
       >
         {content}
