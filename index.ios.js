@@ -15,16 +15,31 @@ import {
 } from 'react-native';
 import Contacts from './app/views/Contacts'
 import Popup from './app/components/popup'
+import MenuListView from './app/views/MenuListView'
 export default class bee_shell extends Component {
   constructor(props){
     super(props)
     this.tt = 'tt';
   }
   _onPressButton(){
-    Popup.show(<View><Text>0000000</Text></View>,{
+    const dataSource = [
+      {id: '001', isSelected: false, text: '001'},
+      {id: '002', isSelected: false, text: '002'},
+      {id: '003', isSelected: false, text: '003'},
+    ]
+    Popup.show(
+      <MenuListView 
+        selectPanelInfo={dataSource} 
+        onPress={(selectedChoice) => {
+          // 将这个和 onMaskClose 绑定起来
+          console.log(selectedChoice);
+          Popup.hide();
+        }}
+      >
+      </MenuListView>,{
       onMaskClose: (e) => {
-        console.log(this.tt)
-        console.log(e)
+        // 用户点击自带的关闭按钮时做一些事情
+        console.log('Popup props',e)
       }
     });
   }

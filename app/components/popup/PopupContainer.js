@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000030',
   },
   button: {
+    marginTop: 100,
     backgroundColor: 'red'
   }
 })
@@ -49,14 +50,15 @@ class PopupContainer extends React.Component {
     // 模拟触发 onAnimationEnd
     setTimeout(()=>{
       this.props.onAnimationEnd();
-    },1000)
+    },100)
   }
 
   onMaskClose = () => {
     const onMaskClose = this.props.onMaskClose;
     if(onMaskClose) {
-      const res = onMaskClose('from popupContainer');
-      // 如果有返回值必须是promise
+      // 回传一些数据回去
+      const res = onMaskClose(this.props);
+      // 如果有返回值但必须是promise
       if(res && res.then) {
         res.then(() => {
           this.hide();
@@ -70,10 +72,7 @@ class PopupContainer extends React.Component {
   render() {
     return(
       <View style={styles.container}>
-        <View 
-          style={styles.mask}
-        >
-
+        <View style={styles.mask}>
           <TouchableOpacity onPress={this.onMaskClose.bind(this)}>
             <Text style={styles.button}>
               close
