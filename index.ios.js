@@ -36,12 +36,15 @@ export default class bee_shell extends Component {
           Popup.hide();
         }}
       >
-      </MenuListView>,{
-      onMaskClose: (e) => {
-        // 用户点击自带的关闭按钮时做一些事情
-        console.log('Popup props',e)
+      </MenuListView>,
+      {
+        onMaskClose: (e) => {
+          // 用户点击自带的关闭按钮时做一些事情
+          console.log('Popup props',e)
+        },
+        // maskClosable: true
       }
-    });
+    );
   }
   render() {
     console.log('index.ios.js-render');

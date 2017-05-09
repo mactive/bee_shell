@@ -1,9 +1,10 @@
-import React from 'react';
+import React ,{ Component, PropTypes } from 'react';
 import { 
   View, 
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Text
 } from 'react-native';
 
@@ -34,13 +35,23 @@ const styles = StyleSheet.create({
   }
 })
 
-class PopupContainer extends React.Component {
+class PopupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: props.visible || false
     };
     console.log(props)
+  }
+
+  static propTypes = {
+    visible: PropTypes.bool,
+    onMaskClose: PropTypes.func,
+    maskClosable: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    maskClosable: true,
   }
 
   hide(){
@@ -53,6 +64,26 @@ class PopupContainer extends React.Component {
     },100)
   }
 
+  /**
+   * 判断mask是否支持点击关闭
+   * 
+   * @memberof PopupContainer
+   */
+  onMaskClosable = () => {
+    if(!this.props.maskClosable){
+      console.log('maskClosable has been set to false');
+      return;
+    } else {
+      this.onMaskClose();
+    }
+  }
+
+  /**
+   * 先执行用户定义的 func
+   * 然后执行PopupContainer 的关闭
+   * 
+   * @memberof PopupContainer
+   */
   onMaskClose = () => {
     const onMaskClose = this.props.onMaskClose;
     if(onMaskClose) {
@@ -72,6 +103,7 @@ class PopupContainer extends React.Component {
   render() {
     return(
       <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={this.onMaskClosable.bind(this)}>
         <View style={styles.mask}>
           <TouchableOpacity onPress={this.onMaskClose.bind(this)}>
             <Text style={styles.button}>
@@ -81,6 +113,7 @@ class PopupContainer extends React.Component {
           
           {this.props.children}
         </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
