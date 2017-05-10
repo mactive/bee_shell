@@ -8,6 +8,7 @@ export default {
   show(content, options = {
     animationType: 'slide-down',
     maskClosable: true,
+    distanceOffset: 100,
     onMaskClose() {},
   }) {
     TopView.set(
@@ -15,6 +16,8 @@ export default {
         ref={i => popupInstance = i}
         onMaskClose={options.onMaskClose}
         maskClosable={options.maskClosable}
+        distanceOffset={options.distanceOffset}
+        animationType={options.animationType}
         onAnimationEnd={visible => { if (!visible) { TopView.remove(); } }}
         visible
       >

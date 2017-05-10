@@ -42,7 +42,9 @@ export default class bee_shell extends Component {
           // 用户点击自带的关闭按钮时做一些事情
           console.log('Popup props',e)
         },
-        // maskClosable: true
+        // maskClosable: true,
+        // distanceOffset: 100,
+        animationType: 'slide-down'
       }
     );
   }
